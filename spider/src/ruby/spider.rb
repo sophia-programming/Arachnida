@@ -1,23 +1,23 @@
 #!/usr/bin/env ruby
-require 'optparse'
-require 'open-uri'
-require 'nokogiri'
-require 'uri'
-require 'fileutils'
+require 'optparse' # コマンドライン引数を解析
+require 'open-uri' # URLからデータを取得
+require 'nokogiri' # HTMLを解析
+require 'uri' # URLを解析
+require 'fileutils' # ファイル操作
 
-# Supported image extensions
 SUPPORTED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.bmp']
 
-# Track visited URLs to avoid infinite loops
+# 訪問済みのURLを保存して無限ループを防ぐ
 @visited_urls = {}
 
-# Parse command line arguments
+# オプションのデフォルト値
 options = {
-  recursive: false,
-  max_depth: 5,
-  save_path: './data/'
+  recursive: false, # 再帰的に画像をダウンロードするかどうか  
+  max_depth: 5, # 最大の深さ
+  save_path: './data/' # ダウンロードした画像を保存するパス
 }
 
+# コマンドライン引数を解析
 OptionParser.new do |opts|
   opts.banner = "Usage: ./spider [options] URL"
 
